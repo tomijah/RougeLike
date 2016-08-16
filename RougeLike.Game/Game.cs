@@ -6,6 +6,8 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    using Assimp;
+
     using OpenTK;
     using OpenTK.Graphics;
     using OpenTK.Graphics.OpenGL4;
@@ -19,7 +21,6 @@
             VSync = VSyncMode.On;
             WindowBorder = WindowBorder.Fixed;
         }
-
 
         protected override void OnLoad(EventArgs e)
         {
