@@ -83,7 +83,7 @@
                 camera.Move(new Vector3(cameraSpeed, 0.0f, 0.0f));
             }
 
-            mesh.SetRotation(new Vector3(0, (float)elapsed, (float)elapsed));
+            mesh.SetRotation(new Vector3(0, (float)elapsed, 0));
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
