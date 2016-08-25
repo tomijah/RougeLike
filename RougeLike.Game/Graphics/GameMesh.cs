@@ -85,21 +85,27 @@
             return modelMatrix;
         }
 
-        public void SetRotation(Vector3 rot)
+        public void SetRotation(float x, float y, float z)
         {
-            rotation = rot;
+            rotation.X = x;
+            rotation.Y = y;
+            rotation.Z = z;
             matrixNeedsUpdate = true;
         }
 
-        public void SetScale(Vector3 s)
+        public void SetScale(float x, float y, float z)
         {
-            scale = s;
+            scale.X = x;
+            scale.Y = y;
+            scale.Z = z;
             matrixNeedsUpdate = true;
         }
 
-        public void SetPosition(Vector3 p)
+        public void SetPosition(float x, float y, float z)
         {
-            position = p;
+            position.X = x;
+            position.Y = y;
+            position.Z = z;
             matrixNeedsUpdate = true;
         }
 

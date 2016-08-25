@@ -20,22 +20,30 @@
 
         private Vector3 up = new Vector3(0.0f, 1.0f, 0.0f);
 
-        public void SetPosition(Vector3 pos)
+        public void SetPosition(float x, float y, float z)
         {
-            position = pos;
+            position.X = x;
+            position.Y = y;
+            position.Z = z;
             needCalculateMatrix = true;
         }
 
-        public void Move(Vector3 t)
+        public void Move(float x, float y, float z)
         {
-            position += t;
-            target += t;
+            position.X += x;
+            position.Y += y;
+            position.Z += z;
+            target.X += x;
+            target.Y += y;
+            target.Z += z;
             needCalculateMatrix = true;
         }
 
-        public void SetTarget(Vector3 t)
+        public void SetTarget(float x, float y, float z)
         {
-            target = t;
+            target.X = x;
+            target.Y = y;
+            target.Z = z;
             needCalculateMatrix = true;
         }
 
@@ -48,6 +56,13 @@
             }
 
             return viewMatrix;
+        }
+
+        public Matrix4 ViewMatrix => GetViewMatrix();
+
+        public Matrix4 GetProjection()
+        {
+            return Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4.0f, (float)800 / (float)600, 0.1f, 100.0f);
         }
     }
 }

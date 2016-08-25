@@ -31,7 +31,7 @@
         public Game()
             : base(800, 600, new GraphicsMode((ColorFormat)32, 16, 0, 8, (ColorFormat)0, 2, false))
         {
-            VSync = VSyncMode.Off;
+            VSync = VSyncMode.On;
             WindowBorder = WindowBorder.Fixed;
             Title = "Rougelike";
         }
@@ -39,16 +39,16 @@
         protected override void OnLoad(EventArgs e)
         {
             GL.Enable(EnableCap.DepthTest);
-            GL.Enable(EnableCap.Blend);
+            //GL.Enable(EnableCap.Blend);
             GL.CullFace(CullFaceMode.Back);
-            GL.ClearColor(Color.MediumSlateBlue);
+            GL.ClearColor(Color.Black);
 
             var context = new AssimpContext();
-            scene = context.ImportFile("Models/torus.dae");
+            scene = context.ImportFile("Models/smooth.dae");
             mesh = new GameMesh(scene.Meshes[0]);
             shader = new BasicMeshShader();
             camera = new GameCamera();
-            camera.SetPosition(new Vector3(0.0f, 0.0f, 5.0f));
+            camera.SetPosition(0.0f, 0.0f, 5.0f);
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -65,25 +65,25 @@
 
             if (keyboardState[Key.W])
             {
-                camera.Move(new Vector3(0.0f, 0.0f, -cameraSpeed));
+                camera.Move(0.0f, 0.0f, -cameraSpeed);
             }
 
             if (keyboardState[Key.S])
             {
-                camera.Move(new Vector3(0.0f, 0.0f, cameraSpeed));
+                camera.Move(0.0f, 0.0f, cameraSpeed);
             }
 
             if (keyboardState[Key.A])
             {
-                camera.Move(new Vector3(-cameraSpeed, 0.0f, 0.0f));
+                camera.Move(-cameraSpeed, 0.0f, 0.0f);
             }
 
             if (keyboardState[Key.D])
             {
-                camera.Move(new Vector3(cameraSpeed, 0.0f, 0.0f));
+                camera.Move(cameraSpeed, 0.0f, 0.0f);
             }
 
-            mesh.SetRotation(new Vector3(0, (float)elapsed, 0));
+            mesh.SetRotation(0, (float)elapsed, 0);
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)

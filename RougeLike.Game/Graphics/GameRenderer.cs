@@ -19,10 +19,10 @@
             int projectionLocation = GL.GetUniformLocation(shader.ProgramId, "projection");
             int modelLocation = GL.GetUniformLocation(shader.ProgramId, "model");
 
-            var projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4.0f, (float)800 / (float)600, 0.1f, 100.0f);
+            var projection = camera.GetProjection();
             GL.UniformMatrix4(projectionLocation, false, ref projection);
 
-            var view = camera.GetViewMatrix();
+            var view = camera.ViewMatrix;
             GL.UniformMatrix4(viewLocation, false, ref view);
 
             var model = mesh.GetModelMatrix();
