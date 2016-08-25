@@ -28,6 +28,8 @@
             var model = mesh.GetModelMatrix();
             GL.UniformMatrix4(modelLocation, false, ref model);
 
+            shader.Update();
+
             GL.BindVertexArray(mesh.Vao);
             GL.DrawElements(BeginMode.Triangles, mesh.Indices.Count, DrawElementsType.UnsignedInt, 0);
             GL.BindVertexArray(0);

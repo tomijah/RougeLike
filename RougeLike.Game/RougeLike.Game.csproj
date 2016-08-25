@@ -75,6 +75,7 @@
     <Compile Include="Graphics\GameRenderer.cs" />
     <Compile Include="Graphics\ShaderBase.cs" />
     <Compile Include="Graphics\Shaders\BasicMeshShader.cs" />
+    <Compile Include="Graphics\Shaders\LightSourceShader.cs" />
     <Compile Include="Graphics\Vertex.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,6 +92,13 @@
     <Content Include="Assimp64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Models\sphere.dae">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\LightSourceFragment.txt" />
+    <None Include="Models\abstract.dae">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Models\smooth.dae">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

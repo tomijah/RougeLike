@@ -61,7 +61,24 @@ namespace RougeLike.Game {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to #version 330 core
+        ///in vec4 vertexColor;
+        ///in vec3 Normal;  
+        ///in vec3 FragPos;  
+        ///
+        ///uniform vec3 lightPos;
+        ///
+        ///out vec4 color;
+        ///
+        ///void main()
+        ///{
+        ///	//vec3 lightPos = vec3(0.0f,5.0f,5.0f);
+        ///	vec3 norm = normalize(Normal);
+        ///	vec3 lightDir = normalize(lightPos - FragPos);  
+        ///	float diff = max(dot(norm, lightDir), 0.0);
+        ///    vec3 diffuse = diff * vec3(1.0, 1.0, 1.0);
+        ///    color = vec4(diffuse, 1.0f) * vertexColor;
+        ///} .
         /// </summary>
         internal static string BasicMeshFragment {
             get {
@@ -70,11 +87,50 @@ namespace RougeLike.Game {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to #version 330 core
+        ///
+        ///layout (location = 0) in vec3 position;
+        ///layout (location = 1) in vec3 normal;
+        ///uniform mat4 view;
+        ///uniform mat4 projection;
+        ///uniform mat4 model;
+        ///
+        ///out vec4 vertexColor;
+        ///out vec3 Normal;
+        ///out vec3 FragPos;  
+        ///
+        ///void main()
+        ///{
+        ///    gl_Position = projection * view * model * vec4(position, 1.0);
+        ///    vertexColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+        ///	FragPos = vec3(model * vec4(position, 1.0f));
+        ///	Normal = mat3(transpose(inverse(model))) * normal;
+        ///}.
         /// </summary>
         internal static string BasicMeshVertex {
             get {
                 return ResourceManager.GetString("BasicMeshVertex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #version 330 core
+        ///in vec4 vertexColor;
+        ///in vec3 Normal;  
+        ///in vec3 FragPos;  
+        ///
+        ///uniform vec3 lightPos;
+        ///
+        ///out vec4 color;
+        ///
+        ///void main()
+        ///{
+        ///    color = vec4(1,1,1,1);
+        ///} .
+        /// </summary>
+        internal static string LightSourceFragment {
+            get {
+                return ResourceManager.GetString("LightSourceFragment", resourceCulture);
             }
         }
     }

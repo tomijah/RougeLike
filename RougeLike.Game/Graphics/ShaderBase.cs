@@ -29,6 +29,8 @@
             }
         }
 
+        public abstract void Update();
+
         protected void AttachShader(string code, ShaderType type)
         {
             int id = GL.CreateShader(type);

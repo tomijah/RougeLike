@@ -62,7 +62,7 @@
 
         public Matrix4 GetProjection()
         {
-            return Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4.0f, (float)800 / (float)600, 0.1f, 100.0f);
+            return Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4.0f, (float)1600 / (float)900, 2f, 1000.0f);
         }
     }
 }

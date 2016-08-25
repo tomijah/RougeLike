@@ -124,4 +124,7 @@
   <data name="BasicMeshVertex" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\BasicMeshVertex.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1250</value>
   </data>
+  <data name="LightSourceFragment" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\LightSourceFragment.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1250</value>
+  </data>
 </root>

@@ -3,14 +3,23 @@ in vec4 vertexColor;
 in vec3 Normal;  
 in vec3 FragPos;  
 
+uniform vec3 lightPos;
+
 out vec4 color;
 
+float constant = 5.0f;
+float linear = 0.09f;
+float quadratic = 0.032f;
+float intensity = 8.0f;
 void main()
 {
-	vec3 lightPos = vec3(0.0f,5.0f,5.0f);
 	vec3 norm = normalize(Normal);
 	vec3 lightDir = normalize(lightPos - FragPos);  
 	float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = diff * vec3(1.0, 1.0, 1.0);
+
+	float distance = length(lightPos - FragPos);
+	float attenuation = 1.0f / (constant + linear * distance + quadratic * (distance * distance));  
+
+    vec3 diffuse = diff * vec3(1.0, 1.0, 1.0) * attenuation * intensity;
     color = vec4(diffuse, 1.0f) * vertexColor;
 } 

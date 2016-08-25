@@ -101,6 +101,14 @@
             matrixNeedsUpdate = true;
         }
 
+        public void Move(float x, float y, float z)
+        {
+            position.X += x;
+            position.Y += y;
+            position.Z += z;
+            matrixNeedsUpdate = true;
+        }
+
         public void SetPosition(float x, float y, float z)
         {
             position.X = x;
