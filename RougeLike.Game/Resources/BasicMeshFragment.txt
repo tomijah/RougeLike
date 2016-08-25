@@ -10,7 +10,7 @@ out vec4 color;
 float constant = 5.0f;
 float linear = 0.09f;
 float quadratic = 0.032f;
-float intensity = 8.0f;
+float intensity = 5.0f;
 void main()
 {
 	vec3 norm = normalize(Normal);

@@ -30,5 +30,10 @@
             : this(new Vector3(x, y, z))
         {
         }
+
+        public Vertex(float x, float y, float z, float nx, float ny, float nz)
+            : this(new Vector3(x, y, z), new Vector3(nx, ny, nz))
+        {
+        }
     }
 }

@@ -73,6 +73,7 @@
     <Compile Include="Graphics\GameCamera.cs" />
     <Compile Include="Graphics\GameMesh.cs" />
     <Compile Include="Graphics\GameRenderer.cs" />
+    <Compile Include="Graphics\PlaneMesh.cs" />
     <Compile Include="Graphics\ShaderBase.cs" />
     <Compile Include="Graphics\Shaders\BasicMeshShader.cs" />
     <Compile Include="Graphics\Shaders\LightSourceShader.cs" />
@@ -93,6 +94,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Models\sphere.dae">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Models\Wolf.dae">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\LightSourceFragment.txt" />

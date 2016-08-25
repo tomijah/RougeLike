@@ -18,7 +18,7 @@
 
         private Vector3 target = Vector3.Zero;
 
-        private Vector3 up = new Vector3(0.0f, 1.0f, 0.0f);
+        private Vector3 up = new Vector3(0.0f, 0.0f, 1.0f);
 
         public void SetPosition(float x, float y, float z)
         {

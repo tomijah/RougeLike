@@ -32,6 +32,10 @@
 
         private Vector3 position = Vector3.Zero;
 
+        protected GameMesh()
+        {
+        }
+
         public GameMesh(List<Vertex> vertices, List<int> indices)
         {
             Vertices = vertices;
@@ -77,7 +81,7 @@
                 var rotateY = Matrix4.CreateRotationY(rotation.Y);
                 var rotateZ = Matrix4.CreateRotationZ(rotation.Z);
 
-                modelMatrix = translateMatrix * (rotateX * rotateY * rotateZ) * scaleMatrix;
+                modelMatrix = scaleMatrix * (rotateX * rotateY * rotateZ) * translateMatrix;
 
                 matrixNeedsUpdate = false;
             }
@@ -117,7 +121,7 @@
             matrixNeedsUpdate = true;
         }
 
-        private void SetupMesh()
+        protected void SetupMesh()
         {
             Vao = GL.GenVertexArray();
             vbo = GL.GenBuffer();
