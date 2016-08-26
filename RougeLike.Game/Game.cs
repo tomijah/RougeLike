@@ -52,7 +52,8 @@
             GL.ClearColor(Color.Black);
 
             var context = new AssimpContext();
-            mesh = new GameMesh(context.ImportFile("Models/abstract.dae", PostProcessSteps.Triangulate).Meshes[0]);
+            mesh = new GameMesh(context.ImportFile("Models/sphere.dae", PostProcessSteps.Triangulate).Meshes[0]);
+            mesh.SetScale(2f, 2f, 2f);
             lightMesh = new GameMesh(context.ImportFile("Models/sphere.dae").Meshes[0]);
             lightMesh.SetScale(0.2f, 0.2f, 0.2f);
             shader = new BasicMeshShader();
@@ -61,7 +62,7 @@
             plane = new PlaneMesh(100, 100);
             plane.SetPosition(0, 0, -3.0f);
             camera.SetPosition(-15.0f, 0.0f, 0.0f);
-            shader.LightPosition = new Vector3(0.0f, 5.0f, 0.0f);
+            shader.LightPosition = new Vector3(0.0f, 5.0f, 5.0f);
             lightMesh.SetPosition(shader.LightPosition.X, shader.LightPosition.Y, shader.LightPosition.Z);
         }
 
@@ -143,7 +144,7 @@
                 shader.LightPosition.Z -= cameraSpeed;
             }
 
-            mesh.SetRotation((float)elapsed * 2, (float)elapsed * 2, 0);
+            //mesh.SetRotation((float)elapsed * 2, (float)elapsed * 2, 0);
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
