@@ -14,33 +14,32 @@
     using OpenTK.Input;
 
     using RougeLike.Game.Graphics;
+    using RougeLike.Game.Graphics.Geometries;
+    using RougeLike.Game.Graphics.Rendering;
     using RougeLike.Game.Graphics.Shaders;
 
     public class Game : GameWindow
     {
-        private GameMesh mesh;
-
-        private GameMesh lightMesh;
-
-        private GameMesh plane;
-
-        private BasicMeshShader shader;
-
-        private LightSourceShader lightSourceShader;
+        private ForwardRenderShader shader;
 
         private GameCamera camera;
 
+        private Object3D wolf;
+
+        private Object3D cube;
+
+        private Object3D tile;
+
+        private ForwardRenderer render;
+
         private double elapsed = 0;
 
+        private double frameRefresh = 0;
+
         public Game()
-            : base(
-                1600,
-                900,
-                new GraphicsMode((ColorFormat)32, 8, 0, 8, (ColorFormat)0, 2, false),
-                "Rougelike",
-                GameWindowFlags.FixedWindow)
+            : base(1600, 900, GraphicsMode.Default, "Rougelike", GameWindowFlags.FixedWindow)
         {
-            VSync = VSyncMode.On;
+            VSync = VSyncMode.Off;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -51,24 +50,23 @@
             GL.CullFace(CullFaceMode.Back);
             GL.ClearColor(Color.Black);
 
-            var context = new AssimpContext();
-            mesh = new GameMesh(context.ImportFile("Models/sphere.dae", PostProcessSteps.Triangulate).Meshes[0]);
-            mesh.SetScale(2f, 2f, 2f);
-            lightMesh = new GameMesh(context.ImportFile("Models/sphere.dae").Meshes[0]);
-            lightMesh.SetScale(0.2f, 0.2f, 0.2f);
-            shader = new BasicMeshShader();
-            lightSourceShader = new LightSourceShader();
+            shader = new ForwardRenderShader();
+            shader.Init(Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4.0f, (float)Width / (float)Height, 2f, 1000.0f));
+            render = new ForwardRenderer(shader);
+            wolf = new Object3D("Models/ww.dae");
+            cube = new Object3D("Models/cube.dae");
+            tile = new Object3D("Models/dungeon.ply");
+            wolf.SetPosition(0, 0, -3);
+            tile.SetPosition(0, 6, -3);
+            cube.SetPosition(0, -6, -1);
             camera = new GameCamera();
-            plane = new PlaneMesh(100, 100);
-            plane.SetPosition(0, 0, -3.0f);
             camera.SetPosition(-15.0f, 0.0f, 0.0f);
-            shader.LightPosition = new Vector3(0.0f, 5.0f, 5.0f);
-            lightMesh.SetPosition(shader.LightPosition.X, shader.LightPosition.Y, shader.LightPosition.Z);
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             elapsed += e.Time;
+            frameRefresh += e.Time;
             var keyboardState = OpenTK.Input.Keyboard.GetState();
 
             if (keyboardState[Key.Escape])
@@ -80,79 +78,50 @@
 
             if (keyboardState[Key.W])
             {
-                camera.Move(cameraSpeed, 0.0f, 0.0f);
+                camera.Move(cameraSpeed, 0.0f, 0.0f, true);
             }
 
             if (keyboardState[Key.S])
             {
-                camera.Move(-cameraSpeed, 0.0f, 0.0f);
+                camera.Move(-cameraSpeed, 0.0f, 0.0f, true);
             }
 
             if (keyboardState[Key.A])
             {
-                camera.Move(0, cameraSpeed, 0.0f);
+                camera.Move(0, cameraSpeed, 0.0f, true);
             }
 
             if (keyboardState[Key.D])
             {
-                camera.Move(0, -cameraSpeed, 0.0f);
+                camera.Move(0, -cameraSpeed, 0.0f, true);
             }
 
             if (keyboardState[Key.Q])
             {
-                camera.Move(0, 0.0f, -cameraSpeed);
+                camera.Move(0, 0.0f, -cameraSpeed, true);
             }
 
             if (keyboardState[Key.E])
             {
-                camera.Move(0, 0.0f, cameraSpeed);
+                camera.Move(0, 0.0f, cameraSpeed, true);
             }
 
-            if (keyboardState[Key.Up])
+            wolf.SetRotation(0, 0, (float)elapsed / 2);
+            tile.SetRotation(0, 0, (float)elapsed / 2);
+            cube.SetRotation(0, 0, (float)elapsed / 2);
+            if (frameRefresh > 1)
             {
-                lightMesh.Move(cameraSpeed, 0.0f, 0.0f);
-                shader.LightPosition.X += cameraSpeed;
+                Title = "Rougelike | Fps: " + Math.Round(RenderFrequency, MidpointRounding.ToEven);
+                frameRefresh = 0;
             }
-
-            if (keyboardState[Key.Down])
-            {
-                lightMesh.Move(-cameraSpeed, 0.0f, 0.0f);
-                shader.LightPosition.X -= cameraSpeed;
-            }
-
-            if (keyboardState[Key.Left])
-            {
-                lightMesh.Move(0.0f, cameraSpeed, 0.0f);
-                shader.LightPosition.Y += cameraSpeed;
-            }
-
-            if (keyboardState[Key.Right])
-            {
-                lightMesh.Move(0.0f, -cameraSpeed, 0.0f);
-                shader.LightPosition.Y -= cameraSpeed;
-            }
-
-            if (keyboardState[Key.PageUp])
-            {
-                lightMesh.Move(0.0f, 0.0f, cameraSpeed);
-                shader.LightPosition.Z += cameraSpeed;
-            }
-
-            if (keyboardState[Key.PageDown])
-            {
-                lightMesh.Move(0.0f, 0.0f, -cameraSpeed);
-                shader.LightPosition.Z -= cameraSpeed;
-            }
-
-            //mesh.SetRotation((float)elapsed * 2, (float)elapsed * 2, 0);
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
-            GameRenderer.DrawMesh(mesh, camera, shader);
-            GameRenderer.DrawMesh(plane, camera, shader);
-            GameRenderer.DrawMesh(lightMesh, camera, lightSourceShader);
+            render.RenderObject(wolf, camera);
+            render.RenderObject(cube, camera);
+            render.RenderObject(tile, camera);
             SwapBuffers();
         }
     }

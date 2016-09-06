@@ -14,16 +14,20 @@
 
         public Vector3 Normal;
 
-        public Vertex(Vector3 position, Vector3 normal)
+        public Vector4 Color;
+
+        public Vertex(Vector3 position, Vector3 normal, Vector4 color)
         {
             Position = position;
             Normal = normal;
+            Color = color;
         }
 
         public Vertex(Vector3 position)
         {
             Position = position;
             Normal = Vector3.Zero;
+            Color = new Vector4(1, 1, 1, 1);
         }
 
         public Vertex(float x, float y, float z)
@@ -32,8 +36,15 @@
         }
 
         public Vertex(float x, float y, float z, float nx, float ny, float nz)
-            : this(new Vector3(x, y, z), new Vector3(nx, ny, nz))
         {
+            Color = new Vector4(1, 1, 1, 1);
+            Position.X = x;
+            Position.Y = y;
+            Position.Z = z;
+
+            Normal.X = nx;
+            Normal.Y = ny;
+            Normal.Z = nz;
         }
     }
 }

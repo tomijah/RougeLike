@@ -12,7 +12,7 @@
         static void Main(string[] args)
         {
             var game = new Game();
-            game.Run(60);
+            game.Run();
         }
     }
 }

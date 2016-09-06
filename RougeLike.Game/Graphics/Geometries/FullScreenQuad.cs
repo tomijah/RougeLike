@@ -1,4 +1,4 @@
-﻿namespace RougeLike.Game
+﻿namespace RougeLike.Game.Graphics.Geometries
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,10 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class GameComponent
+    public class FullScreenQuad
     {
+        public FullScreenQuad()
+        {
+        }
     }
 }
